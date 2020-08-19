@@ -1,0 +1,43 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+    <link href="./style.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="video-view">
+                <div class="played-video" id="played-video">
+                </div>
+                <div class="comment-section">
+                    <textarea class="comment-box" rows="4" placeholder="Add comment here"></textarea>
+                    <div class="comment-button-wrapper">
+                        <button class="comment-button button-outline">Cancel</button>
+                        <button class="comment-button">Add Comment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="video-list">
+                <div class="list-header">
+                    <span class="list-title">Science</span>
+                </div>
+                <div class="video-list-items" id="video-list-items">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+
+</body>
