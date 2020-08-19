@@ -1,17 +1,17 @@
 $(document).ready(function () {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "http://choreographersdanceinstitute.com/AndroidServices/videosbysubjectid",
-  //     data: JSON.stringify({
-  //       id: 1,
-  //     }),
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "http://localhost:3000",
-  //       "Access-Control-Allow-Credentials": "true",
-  //     },
-  //     success: function (res) {
+  // $.ajax({
+  //   type: "POST",
+  //   url: "http://choreographersdanceinstitute.com/AndroidServices/videosbysubjectid",
+  //   data: JSON.stringify({
+  //     id: 1,
+  //   }),
+  //   headers: {
+  //     Accept: "application/json",
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": "http://localhost:3000",
+  //     "Access-Control-Allow-Credentials": "true",
+  //   },
+  //   success: function (res) {
   let res = {
     map: {
       videos: {
@@ -98,25 +98,34 @@ $(document).ready(function () {
   let videoList = res.map.videos.myArrayList;
   if (videoList && videoList.length > 0) {
     for (let video of videoList) {
-      $("#video-list-items").append(`<div class="list-item">
-        <div class="video-img">
-            <img src="http://choreographersdanceinstitute.com/imageDisplay?image=${video.map.subjectmster.map.coursemaste.map.image}" />
-        </div>
-        <input hidden value="http://choreographersdanceinstitute.com/videos/${video.map.video_name}" />
-        <div class="video-header">
-            <div class="video-title">${video.map.video_name}</div>
-            <div class="video-desc">
-                <div class="video-likes">${video.map.subjectmster.map.coursemaste.map.course_name}</div>
-                <div class="video-date">Added On: ${video.map.date}</div>
-            </div>
-        </div>
-</div>`);
+      $("#video-list-items").append(
+        '<div class="list-item">' +
+          '<div class="video-img">' +
+          '<img src="http://choreographersdanceinstitute.com/imageDisplay?image=' +
+          video.map.subjectmster.map.coursemaste.map.image +
+          '"/>' +
+          "</div>" +
+          '<input hidden value="http://choreographersdanceinstitute.com/videos/' +
+          video.map.video_name +
+          '"/>' +
+          '<div class="video-header">' +
+          '<div class="video-title">' +
+          video.map.video_name +
+          "</div>" +
+          '<div class="video-desc">' +
+          '<div class="video-likes">' +
+          video.map.subjectmster.map.coursemaste.map.course_name +
+          "</div>" +
+          '<div class="video-date">Added On: ' +
+          video.map.date +
+          "</div>" +
+          "</div>" +
+          "</div>" +
+          "</div>"
+      );
     }
   }
-  //     },
-  //   });
-
-  $(".list-item").click(function () {
+  $(document).on("click", ".list-item", function () {
     let videoImg = $(this).find("img").attr("src");
     let videoPath = $(this).find("input").attr("value");
 
@@ -130,25 +139,10 @@ $(document).ready(function () {
         myButtonDom.innerHTML =
           '<ul><li>720p</li><li>480p</li><li>360p</li><li>240p</li><li>144p</li></ul><span aria-hidden="true" class="vjs-icon-placeholder"></span>';
         myButton.addClass("vjs-setting-control");
-
-        myButtonDom.onclick = function () {
-          //setting option add here
-        };
       }
 
       video.src(videoPath);
-    } else
-      $("#played-video").html(`<video id="my-video" class="video-js" controls preload="none" autoplay="true" seeking
-        poster=${videoImg}
-        data-setup="{}">
-        <source src=${videoPath} type="video/mp4" />
-        <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a
-            web browser that
-            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-        </p>
-     </video>
-     <div class="played-video-title">Video Title</div>`);
+    } else $("#played-video").html('<video id="my-video" class="video-js" controls preload="none" autoplay="true" seeking poster=' + videoImg + ' data-setup="{}">' + "<source src=" + videoPath + ' type="video/mp4" />' + '<p class="vjs-no-js">' + "To view this video please enable JavaScript, and consider upgrading to a" + "web browser that" + '<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>' + "</p>" + "</video>" + '<div class="played-video-title">Video Title</div>');
     if ($(".vjs-setting-control").length == 0) {
       var video = videojs("my-video");
       var myButton = video.controlBar.addChild("button");
@@ -157,15 +151,19 @@ $(document).ready(function () {
       myButtonDom.innerHTML =
         '<ul class="vjs-setting-option"><li>720p</li><li>480p</li><li>360p</li><li>240p</li><li>144p</li></ul><span aria-hidden="true" class="vjs-icon-placeholder"></span>';
       myButton.addClass("vjs-setting-control");
-
-      myButtonDom.onclick = function () {
-        //setting option add here
-        $(".vjs-setting-option").toggle();
-      };
     }
   });
+  if ($(".list-item").length > 0) {
+    $(".list-item").first().trigger("click");
+  } else {
+    alert();
+  }
+  //   },
+  // });
 
-  $(".list-item:first-child").click();
+  $(document).on("click touchstart", ".vjs-setting-control", function () {
+    $(".vjs-setting-option").toggle();
+  });
 
   $(".vjs-setting-option li").click(function () {
     //quality setting option code here
